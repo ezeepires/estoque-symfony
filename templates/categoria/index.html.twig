@@ -3,50 +3,52 @@
 {% block title %}Categorias{% endblock %}
 
 {% block content %}
-    <h1 class="h3 mb-3">Categorias</h1>
+    <h1>Categorias</h1>
 
     {{ form_start(form) }}
-        {{ form_row(form.nome, { label: 'Nome' }) }}
-        <button type="submit" class="btn btn-primary mb-4">
-            {% if editando|default(false) %}
-                Salvar alterações
-            {% else %}
-                Cadastrar
-            {% endif %}
-        </button>
-    {{ form_end(form) }}
-    {% if editando|default(false) %}
-        <a href="{{ path('listar_categorias') }}">Cancelar edição</a>
-    {% endif %}
-
-    {% if categorias is empty %}
-        <p class="text-body-secondary">Nenhuma categoria cadastrada.</p>
-    {% else %}
-        <div class="table-responsive">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th scope="col">Id</th>
-                        <th scope="col">Nome</th>
-                        <th scope="col">Ações</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for categoria in categorias %}
-                        <tr>
-                            <td>{{ categoria.id }}</td>
-                            <td>{{ categoria.nome }}</td>
-                            <td>
-                                <a href="{{ path('editar_categoria', {id: categoria.id}) }}" class="btn btn-secondary btn-sm">Editar</a>
-                                <form action="{{ path('remover_categoria', {id: categoria.id}) }}" method="post">
-                                    <input type="hidden" name="_token" value="{{ csrf_token('remover_categoria' ~ categoria.id) }}">
-                                    <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
-                                </form>
-                            </td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
+        <div class="row align-items-end">
+            <div class="col-md-8">
+                {{ form_row(form.nome, { label: 'Nome' }) }}
+            </div>
+            <div class="col-md-4 mb-3">
+                <button type="submit" class="btn btn-primary">
+                    {% if editando|default(false) %}Salvar alterações{% else %}Cadastrar{% endif %}
+                </button>
+                {% if editando|default(false) %}
+                    <a href="{{ path('listar_categorias') }}">Cancelar</a>
+                {% endif %}
+            </div>
         </div>
-    {% endif %}
+    {{ form_end(form) }}
+
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for categoria in categorias %}
+                    <tr>
+                        <td>{{ categoria.id }}</td>
+                        <td>{{ categoria.nome }}</td>
+                        <td>
+                            <a href="{{ path('editar_categoria', {id: categoria.id}) }}">Editar</a>
+                            <form action="{{ path('remover_categoria', {id: categoria.id}) }}" method="post" class="d-inline">
+                                <input type="hidden" name="_token" value="{{ csrf_token('remover_categoria' ~ categoria.id) }}">
+                                <button type="submit" class="btn btn-danger btn-sm">Excluir</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3">Nenhuma categoria cadastrada.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 {% endblock %}

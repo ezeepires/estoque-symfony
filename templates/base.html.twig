@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" class="h-100">
+<html lang="pt-BR">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,17 +19,14 @@
         <script src="https://cdn.jsdelivr.net/npm/frankenphp-hot-reload/+esm" type="module"></script>
         {% endif %}
     </head>
-    <body class="d-flex flex-column min-vh-100 bg-body-tertiary">
-        <main class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-12 col-md-10 col-lg-8">
-                        {% include '_partials/_mensagens.html.twig' %}
-
-                        {% block body %}{% endblock %}
-                    </div>
+    <body class="min-vh-100 bg-body-tertiary">
+        {% block layout %}
+            <main class="container min-vh-100 d-flex align-items-center justify-content-center py-5">
+                <div class="w-100" style="max-width: 520px">
+                    {% include '_partials/_mensagens.html.twig' %}
+                    {% block body %}{% endblock %}
                 </div>
-            </div>
-        </main>
+            </main>
+        {% endblock %}
     </body>
 </html>

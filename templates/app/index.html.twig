@@ -3,42 +3,7 @@
 {% block title %}Início — Estoque{% endblock %}
 
 {% block content %}
-    <div class="text-center mb-4">
-        <h1 class="h3 mb-1">Início</h1>
-        <p class="text-body-secondary mb-0">Bem-vindo(a) ao painel do sistema.</p>
-    </div>
-
-    <div class="row g-3 justify-content-center">
-        <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card shadow-sm h-100 text-center">
-                <div class="card-body">
-                    <p class="text-uppercase small text-body-secondary mb-1">Produtos</p>
-                    <p class="display-6 mb-0">0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card shadow-sm h-100 text-center">
-                <div class="card-body">
-                    <p class="text-uppercase small text-body-secondary mb-1">Categorias</p>
-                    <p class="display-6 mb-0">0</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-12 col-sm-6 col-lg-4">
-            <div class="card shadow-sm h-100 text-center">
-                <div class="card-body">
-                    <p class="text-uppercase small text-body-secondary mb-1">Movimentações</p>
-                    <p class="display-6 mb-0">0</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="card shadow-sm mt-4 text-center">
-        <div class="card-header bg-white fw-semibold">Últimas movimentações</div>
-        <div class="card-body">
-            <p class="text-body-secondary mb-0">Nenhuma movimentação registrada até o momento.</p>
-        </div>
-    </div>
+    <h1 class="h3">Painel</h1>
+    <p>Bem-vindo(a) ao sistema de estoque.</p>
+    <p><a href="{{ path('listar_categorias') }}">Categorias cadastradas</a>: {{ totalCategorias }}</p>
 {% endblock %}
