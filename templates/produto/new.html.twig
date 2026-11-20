@@ -5,7 +5,10 @@
 {% block content %}
     <h1 class="h3">Cadastrar produto</h1>
 
-    {{ include('produto/_form.html.twig') }}
+    {{ include('produto/_form.html.twig', {
+        button_label: 'Cadastrar',
+        form_action: path('app_produto_create')
+    }) }}
 
     <a href="{{ path('app_produto_index') }}">Voltar para produtos</a>
 {% endblock %}

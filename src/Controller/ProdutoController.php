@@ -22,7 +22,8 @@ final class ProdutoController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_produto_new', methods: ['GET', 'POST'])]
+    #[Route('/cadastrar', name: 'app_produto_new', methods: ['GET'])]
+    #[Route('', name: 'app_produto_create', methods: ['POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $produto = new Produto();
@@ -42,15 +43,7 @@ final class ProdutoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produto_show', methods: ['GET'])]
-    public function show(Produto $produto): Response
-    {
-        return $this->render('produto/show.html.twig', [
-            'produto' => $produto,
-        ]);
-    }
-
-    #[Route('/{id}/edit', name: 'app_produto_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}', name: 'app_produto_edit', requirements: ['id' => '\d+'], methods: ['GET', 'POST'])]
     public function edit(Request $request, Produto $produto, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(ProdutoType::class, $produto);
@@ -68,7 +61,7 @@ final class ProdutoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_produto_delete', methods: ['POST'])]
+    #[Route('/{id}/remover', name: 'app_produto_delete', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function delete(Request $request, Produto $produto, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$produto->getId(), $request->getPayload()->getString('_token'))) {
@@ -79,7 +72,7 @@ final class ProdutoController extends AbstractController
         return $this->redirectToRoute('app_produto_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/adicionar', name: 'app_produto_adicionar', methods: ['POST'])]
+    #[Route('/{id}/adicionar', name: 'app_produto_adicionar', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function adicionar(Request $request, Produto $produto, EntityManagerInterface $entityManager): Response
     {
         if (!$this->isCsrfTokenValid(
@@ -95,7 +88,7 @@ final class ProdutoController extends AbstractController
         return $this->redirectToRoute('app_produto_index', [], Response::HTTP_SEE_OTHER);
     }
 
-    #[Route('/{id}/vender', name: 'app_produto_vender', methods: ['POST'])]
+    #[Route('/{id}/vender', name: 'app_produto_vender', requirements: ['id' => '\d+'], methods: ['POST'])]
     public function vender(Request $request, Produto $produto, EntityManagerInterface $entityManager): Response
     {
         if (!$this->isCsrfTokenValid(
